@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ReservaSenacApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+755b5ad6c1a39b5cfbf0f112dd59ae324d760c4d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4859133780c9d347e6de535b09e7eb19521d69f9")]
 [assembly: System.Reflection.AssemblyProductAttribute("ReservaSenacApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ReservaSenacApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
