@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reserva Senac</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand" aria-label="Senac">
+      <span class="brand-mark">S</span>
+      <span class="brand-name">senac</span>
+    </div>
+
+    <nav class="nav" aria-label="Navegação principal">
+      <button class="nav-item active" data-view="agenda">
+        <span class="nav-icon" aria-hidden="true">▦</span>
+        <span>Agenda</span>
+      </button>
+      <button class="nav-item" data-view="reservas">
+        <span class="nav-icon" aria-hidden="true">▣</span>
+        <span>Reservas</span>
+      </button>
+      <button class="nav-item" data-view="salas">
+        <span class="nav-icon" aria-hidden="true">⌂</span>
+        <span>Salas</span>
+      </button>
+      <button class="nav-item" data-view="nova">
+        <span class="nav-icon" aria-hidden="true">＋</span>
+        <span>Nova reserva</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="nav-item">
+        <span class="nav-icon" aria-hidden="true">?</span>
+        <span>Ajuda</span>
+      </button>
+      <div class="profile">
+        <div class="avatar">AS</div>
+        <div>
+          <strong>Ana Silva</strong>
+          <small>Gestora de operações</small>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">SISTEMA DE RESERVAS</p>
+        <h1>Agenda de salas</h1>
+      </div>
+      <button class="primary-button" id="openModal">
+        <span aria-hidden="true">＋</span>
+        Nova reserva
+      </button>
+    </header>
+
+    <section class="view-screen" id="agendaScreen">
+    <div class="toolbar" aria-label="Filtros da agenda">
+      <div class="date-controls">
+        <button class="icon-button" id="previousDay" aria-label="Dia anterior">‹</button>
+        <button class="date-button" id="selectedDate">
+          <span aria-hidden="true">□</span>
+          <span>17 de novembro</span>
+        </button>
+        <button class="icon-button" id="nextDay" aria-label="Próximo dia">›</button>
+        <button class="today-button" id="todayButton">Hoje</button>
+      </div>
+
+      <div class="filters">
+        <label class="select-wrap">
+          <span>Local</span>
+          <select id="locationFilter" aria-label="Filtrar por local">
+            <option value="todos">Todos os locais</option>
+            <option value="Torre A">Torre A</option>
+            <option value="Torre B">Torre B</option>
+          </select>
+        </label>
+        <label class="select-wrap">
+          <span>Capacidade</span>
+          <select id="capacityFilter" aria-label="Filtrar por capacidade">
+            <option value="0">Qualquer tamanho</option>
+            <option value="5">Até 5 pessoas</option>
+            <option value="12">Até 12 pessoas</option>
+            <option value="20">Até 20 pessoas</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <div class="agenda-card">
+        <div class="agenda-head">
+          <div>
+            <span class="week-label">SEGUNDA-FEIRA</span>
+            <strong id="agendaTitle">17 nov.</strong>
+          </div>
+          <div class="availability-summary">
+            <span class="status-dot"></span>
+            <strong id="availableCount">3</strong> salas disponíveis
+          </div>
+        </div>
+
+        <div class="timeline" id="timeline">
+          <div class="time-column" aria-hidden="true">
+            <span>08:00</span>
+            <span>09:00</span>
+            <span>10:00</span>
+            <span>11:00</span>
+            <span>12:00</span>
+            <span>13:00</span>
+            <span>14:00</span>
+            <span>15:00</span>
+            <span>16:00</span>
+            <span>17:00</span>
+          </div>
+          <div class="rooms-grid" id="roomsGrid"></div>
+        </div>
+      </div>
+
+      <aside class="right-panel">
+        <div class="panel-header">
+          <div>
+            <p class="panel-kicker">PRÓXIMAS RESERVAS</p>
+            <h2>Hoje</h2>
+          </div>
+          <button class="more-button" aria-label="Mais opções">•••</button>
+        </div>
+        <div class="reservation-list" id="reservationList"></div>
+
+        <div class="quick-actions">
+          <button id="roomsShortcut">Ver todas as salas <span>→</span></button>
+        </div>
+      </aside>
+    </div>
+    </section>
+
+    <section class="view-screen" id="reservasScreen" hidden>
+      <div class="list-page">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">HISTÓRICO E CONSULTA</p>
+            <h2>Reservas</h2>
+          </div>
+          <button class="primary-button" data-open-reservation><span>＋</span> Nova reserva</button>
+        </div>
+        <div class="table-card">
+          <div class="table-toolbar">
+            <input id="reservationSearch" type="search" placeholder="Buscar reserva ou sala">
+            <select id="reservationStatus" aria-label="Status da reserva">
+              <option value="todos">Todos os status</option>
+              <option value="confirmada">Confirmadas</option>
+              <option value="proxima">Próximas</option>
+            </select>
+          </div>
+          <div class="data-table" id="reservationsTable"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view-screen" id="salasScreen" hidden>
+      <div class="list-page">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">CADASTRO DE ESPAÇOS</p>
+            <h2>Salas</h2>
+          </div>
+          <button class="primary-button" id="openRoomModal"><span>＋</span> Nova sala</button>
+        </div>
+        <div class="room-cards" id="roomCards"></div>
+      </div>
+    </section>
+
+    <section class="view-screen" id="novaScreen" hidden>
+      <div class="list-page new-reservation-page">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">CRIAR RESERVA</p>
+            <h2>Nova reserva</h2>
+          </div>
+        </div>
+        <div class="new-reservation-card">
+          <div id="embeddedReservationForm"></div>
+          <aside class="availability-card">
+            <p class="panel-kicker">DISPONIBILIDADE</p>
+            <h3>17 de novembro</h3>
+            <div id="availabilitySlots"></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <div>
+          <p class="panel-kicker">NOVA RESERVA</p>
+          <h2 id="modalTitle">Reservar sala</h2>
+        </div>
+        <button class="close-button" id="closeModal" aria-label="Fechar">×</button>
+      </div>
+      <form id="reservationForm">
+        <label>
+          Sala
+          <select name="room" id="roomSelect" required>
+            <option value="">Selecione uma sala</option>
+            <option value="Sala Aurora">Sala Aurora · Torre A · 8 pessoas</option>
+            <option value="Sala Horizonte">Sala Horizonte · Torre A · 12 pessoas</option>
+            <option value="Sala Criativa">Sala Criativa · Torre B · 6 pessoas</option>
+            <option value="Auditório">Auditório · Torre B · 20 pessoas</option>
+          </select>
+        </label>
+        <div class="form-row">
+          <label>
+            Data
+            <input type="date" name="date" value="2026-11-17" required>
+          </label>
+          <label>
+            Objetivo
+            <input type="text" name="objective" placeholder="Ex: Reunião de equipe" required>
+          </label>
+        </div>
+        <div class="form-row">
+          <label>
+            Início
+            <select name="start" required>
+              <option>08:00</option>
+              <option>09:00</option>
+              <option>10:00</option>
+              <option>11:00</option>
+              <option>13:00</option>
+              <option>14:00</option>
+              <option>15:00</option>
+              <option>16:00</option>
+            </select>
+          </label>
+          <label>
+            Término
+            <select name="end" required>
+              <option>09:00</option>
+              <option>10:00</option>
+              <option>11:00</option>
+              <option>12:00</option>
+              <option>14:00</option>
+              <option>15:00</option>
+              <option>16:00</option>
+              <option>17:00</option>
+            </select>
+          </label>
+        </div>
+        <label>
+          Responsável
+          <input type="text" name="responsible" value="Ana Silva" required>
+        </label>
+        <p class="form-error" id="formError" hidden></p>
+        <div class="modal-actions">
+          <button type="button" class="secondary-button" id="cancelModal">Cancelar</button>
+          <button type="submit" class="primary-button">Confirmar reserva</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
