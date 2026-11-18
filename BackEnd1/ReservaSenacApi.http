@@ -1,0 +1,6 @@
+@ReservaSenacApi_HostAddress = http://localhost:5079
+
+GET {{ReservaSenacApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
